@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *  
-from django.views.generic import ListView,DetailView,RedirectViews
+from django.views.generic import *
 
 #def poll_list(req):
    # polls = models.Poll.objects.all()
@@ -14,12 +14,13 @@ class PollDetail(DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         option = Option.objects.filter(poll_id=self.kwargs['pk'])
-        context['options_list'] = options
+        ctx['options'] = options
         return ctx
 
-class PollVote(RedirectViews):    
+class PollVote(RedirectView):    
     def get_redirect_url(self, *args,**kwargs):
         option = Option.objects.get(id=self.kwargs['oid'])
         option.count += 1
         option.save()
-        return'/poll/'+str(option.poll_id)+'/'
+        return '/poll/{}/' + format(option.poll_id)
+        #return'/poll/'+str(option.poll_id)+'/'
