@@ -14,7 +14,7 @@ class PollDetail(DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         option = Option.objects.filter(poll_id=self.kwargs['pk'])
-        ctx['options'] = options
+        ctx['option_list'] = options
         return ctx
 
 class PollVote(RedirectView):    
@@ -24,3 +24,9 @@ class PollVote(RedirectView):
         option.save()
         return '/poll/{}/' + format(option.poll_id)
         #return'/poll/'+str(option.poll_id)+'/'
+
+class PollCreate(CreateView):
+    model = Poll
+    fields = ['subect','description']
+    success_url = '/poll/'
+    template_name = 'general_form.html'
