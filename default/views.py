@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import *  
+from .models import Poll,Option  
 from django.views.generic import *
 
 #def poll_list(req):
@@ -29,4 +29,12 @@ class PollCreate(CreateView):
     model = Poll
     fields = ['subect','description']
     success_url = '/poll/'
-    template_name = 'general_form.html'
+
+class PollEdit(UpdateView):
+    model = Poll
+    fields = '__all__'
+    success_url = '/poll/'
+
+class PollDelete(DeleteView):
+    model = Poll
+    success_url = '/poll/'

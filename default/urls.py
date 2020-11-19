@@ -8,6 +8,8 @@ urlpatterns = [
     path('poll/', PollList.as_view()),
     path('poll/<int:pk>/', PollDetail.as_view()),
     path('option/<int:oid>/',PollVote.as_view()),
-    path('option/<int:pk>/', views.PollVote.as_view()),
-    path('poll/create/', views.PollCreate.as_view()),
+    path('poll/create/', PollCreate.as_view()),
+    path('poll/<int:pk>/edit/', PollEdit.as_view()),
+    path('poll/<int:pk>/delete/',PollDelete.as_view()),
+
 ]
